@@ -22,7 +22,7 @@ DurationTimer timer{strand, std::chrono::second{1}};
 ## Point timer
 * One-time timer by default
 
-* Definition
+* Declaration
 ```c++
 template <class IntervalType = std::chrono::hours,
           class IOExecutor   = boost::asio::io_context,
@@ -47,7 +47,7 @@ ioc.run();
 ## Duration timer
 * Repeat by default
 
-* Definition
+* Declaration
 ```c++
 template <class IntervalType = std::chrono::hours,
           class IOExecutor   = boost::asio::io_context,
