@@ -10,6 +10,7 @@ C++11 Timer wrappers based on Boost.Asio timers
 ## Point timer
 * One-time timer by default
 
+* Definition
 ```c++
 template <class IntervalType = std::chrono::hours,
           class IOExecutor   = boost::asio::io_context,
@@ -18,6 +19,7 @@ template <class IntervalType = std::chrono::hours,
 class PointTimer
 ```
 
+* Example
 ```c++
 auto second_from_now =
    std::chrono::system_clock::now() + std::chrono::seconds{1};
@@ -31,7 +33,9 @@ ioc.run();
 ```
 
 ## Duration timer
-* repeat by default
+* Repeat by default
+
+* Definition
 ```c++
 template <class IntervalType = std::chrono::hours,
           class IOExecutor   = boost::asio::io_context,
@@ -40,6 +44,7 @@ template <class IntervalType = std::chrono::hours,
 class PointTimer
 ```
 
+* Example
 ```c++
 auto start_time = std::chrono::steady_clock::now();
 std::chrono::steady_clock::time_point expired_time;
@@ -53,6 +58,8 @@ ioc.run();
 ```
 
 ## Point timer with boost ptime
+* Example
+
 ```c++
 using namespace boost::posix_time;
 auto second_from_now = second_clock::universal_time() + seconds{1};
