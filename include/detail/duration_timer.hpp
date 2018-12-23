@@ -30,14 +30,14 @@ class DurationTimer : public BasicTimer<IntervalType, IOExecutor, Timer,
       BasicTimer<IntervalType, IOExecutor, Timer, TimePoint, ExpireAfter>;
 
   template <class Interval>
-  DurationTimer(IOExecutor& ioe, const Interval& interval, bool recursive)
-    : Base{ioe, TimePoint{}, interval, recursive}
+  DurationTimer(IOExecutor& ioe, Interval&& interval, bool recursive)
+    : Base{ioe, TimePoint{}, std::forward<Interval>(interval), recursive}
   {
   }
 
   template <class Interval>
-  DurationTimer(IOExecutor& ioe, const Interval& interval)
-    : DurationTimer{ioe, interval, true}
+  DurationTimer(IOExecutor& ioe, Interval&& interval)
+    : DurationTimer{ioe, std::forward<Interval>(interval), true}
   {
   }
 };

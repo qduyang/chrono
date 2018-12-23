@@ -51,45 +51,48 @@ class BasicTimer : public ExpiryPolicy<IntervalType, TimePoint>
  public:
   using ExpiryMgr = ExpiryPolicy<IntervalType, TimePoint>;
 
-  template <class Interval>
-  BasicTimer(IOExecutor& ioe, const TimePoint& expiry_time,
-             const Interval& interval, bool recursive)
-    : ExpiryMgr{expiry_time, interval},
+  template <class TP, class Interval>
+  BasicTimer(IOExecutor& ioe, TP&& expiry_time, Interval&& interval,
+             bool recursive)
+    : ExpiryMgr{std::forward<TP>(expiry_time),
+                std::forward<Interval>(interval)},
       ioe_{ioe},
       timer_{GetIOContext(ioe)},
       recursive_{recursive}
   {
   }
 
-  BasicTimer(IOExecutor& ioe, const TimePoint& expiry_time)
-    : BasicTimer{ioe, expiry_time, 1, false}
+  template <class TP>
+  BasicTimer(IOExecutor& ioe, TP&& expiry_time)
+    : BasicTimer{ioe, std::forward<TP>(expiry_time), 1, false}
   {
   }
 
-  template <class Interval>
-  BasicTimer(IOExecutor& ioe, const TimePoint& expiry_time,
-             const Interval& interval)
-    : BasicTimer{ioe, expiry_time, interval, false}
+  template <class TP, class Interval>
+  BasicTimer(IOExecutor& ioe, TP&& expiry_time, Interval&& interval)
+    : BasicTimer{ioe, std::forward<TP>(expiry_time),
+                 std::forward<Interval>(interval), false}
   {
   }
 
-  BasicTimer(IOExecutor& ioe, const TimePoint& expiry_time, bool recursive)
-    : BasicTimer{ioe, expiry_time, 1, recursive}
+  template <class TP>
+  BasicTimer(IOExecutor& ioe, TP&& expiry_time, bool recursive)
+    : BasicTimer{ioe, std::forward<TP>(expiry_time), 1, recursive}
   {
   }
 
-  template <class Rep, class Period>
-  BasicTimer(IOExecutor& ioe, const TimePoint& expiry_time,
+  template <class TP, class Rep, class Period>
+  BasicTimer(IOExecutor& ioe, TP&& expiry_time,
              const std::chrono::duration<Rep, Period>& interval)
-    : BasicTimer{ioe, expiry_time,
+    : BasicTimer{ioe, std::forward<TP>(expiry_time),
                  std::chrono::duration_cast<IntervalType>(interval), false}
   {
   }
 
-  template <class Rep, class Period>
-  BasicTimer(IOExecutor& ioe, const TimePoint& expiry_time,
+  template <class TP, class Rep, class Period>
+  BasicTimer(IOExecutor& ioe, TP&& expiry_time,
              const std::chrono::duration<Rep, Period>& interval, bool recursive)
-    : ExpiryMgr{expiry_time,
+    : ExpiryMgr{std::forward<TP>(expiry_time),
                 std::chrono::duration_cast<IntervalType>(interval)},
       ioe_{ioe},
       timer_{GetIOContext(ioe)},

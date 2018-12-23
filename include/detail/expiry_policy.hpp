@@ -18,21 +18,23 @@ template <class IntervalType, class TimePoint>
 class ExpireAtPoint
 {
  public:
-  template <class T>
-  ExpireAtPoint(const TimePoint& expiry_time, const T& interval)
-    : expiry_time_{expiry_time}, interval_{interval}
+  template <class TP, class T>
+  ExpireAtPoint(TP&& expiry_time, T&& interval)
+    : expiry_time_{std::forward<TP>(expiry_time)},
+      interval_{std::forward<T>(interval)}
   {
   }
 
-  inline void ExpireAt(const TimePoint& expiry_time)
+  template <class TP>
+  inline void ExpireAt(TP&& expiry_time)
   {
-    expiry_time_ = expiry_time;
+    expiry_time_ = std::forward<TP>(expiry_time);
   }
 
   template <class T>
-  inline void Interval(const T& interval)
+  inline void Interval(T&& interval)
   {
-    interval_ = interval;
+    interval_ = std::forward<T>(interval);
   }
 
  protected:
@@ -63,14 +65,15 @@ class ExpireAfter
 {
  public:
   template <class T>
-  ExpireAfter(const TimePoint&, const T& interval) : interval_{interval}
+  ExpireAfter(const TimePoint&, T&& interval)
+    : interval_{std::forward<T>(interval)}
   {
   }
 
   template <class T>
-  inline void Interval(const T& interval)
+  inline void Interval(T&& interval)
   {
-    interval_ = interval;
+    interval_ = std::forward<T>(interval);
   }
 
  protected:
