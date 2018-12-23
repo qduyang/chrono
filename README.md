@@ -4,6 +4,7 @@ C++11 Timer wrappers based on Boost.Asio timers
 * Repeatable
 * Cancellable
 * Point-based or Duration-based
+* Thread-safed timer supported by asio::strand as io executor 
 
 # Uasge
 ## Point timer
