@@ -13,6 +13,10 @@ timer.Stop();
 ```
 * Point-based or Duration-based
 * Thread-safed callback supported by asio::strand as io executor
+```c++
+boost::asio::strand strand;
+DurationTimer timer{strand, std::chrono::second{1}};
+```
 
 # Uasge
 ## Point timer
