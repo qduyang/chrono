@@ -37,7 +37,7 @@ auto second_from_now =
    std::chrono::system_clock::now() + std::chrono::seconds{1};
 boost::asio::io_context ioc;
 
-PointTimer<std::chrono::hours> timer{ioc, second_from_now};
+PointTimer timer{ioc, second_from_now};
 timer.Start([]() { std::cout << "timer expired." << std::endl; }); 
 
 ioc.run();
