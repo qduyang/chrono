@@ -98,9 +98,9 @@ class BasicTimer : public ExpiryPolicy<IntervalType, TimePoint>
   }
 
   template <class F>
-  inline void Start(F handler)
+  inline void Start(F&& handler)
   {
-    PutTimer(handler, ioe_);
+    PutTimer(std::forward<F>(handler), ioe_);
   }
 
   inline void Recursive(bool type)
@@ -132,35 +132,36 @@ class BasicTimer : public ExpiryPolicy<IntervalType, TimePoint>
   }
 
   template <class F>
-  inline void OnTimeout(const boost::system::error_code& ec, const F& handler)
+  inline void OnTimeout(const boost::system::error_code& ec, F&& handler)
   {
     if (ec != boost::asio::error::operation_aborted)
     {
       handler();
       if (recursive_)
       {
-        PutTimer(handler, ioe_);
+        PutTimer(std::forward<F>(handler), ioe_);
       }
     }
   }
 
   template <class F>
-  inline void PutTimer(const F& handler, const boost::asio::io_context&)
+  inline void PutTimer(F&& handler, const boost::asio::io_context&)
   {
     ExpiryMgr::SetExpireTime(timer_);
-    timer_.async_wait([this, handler](const boost::system::error_code& ec) {
-      OnTimeout(ec, handler);
+    timer_.async_wait([this, handler = std::forward<F>(handler)](
+        const boost::system::error_code& ec) {
+      OnTimeout(ec, std::move(handler));
     });
   }
 
   template <class F>
-  inline void PutTimer(const F& handler, const boost::asio::io_context::strand&)
+  inline void PutTimer(F&& handler, const boost::asio::io_context::strand&)
   {
     ExpiryMgr::SetExpireTime(timer_);
-    timer_.async_wait(
-        ioe_.wrap([this, handler](const boost::system::error_code& ec) {
-          OnTimeout(ec, handler);
-        }));
+    timer_.async_wait(ioe_.wrap([this, handler = std::forward<F>(handler)](
+        const boost::system::error_code& ec) {
+      OnTimeout(ec, std::move(handler));
+    }));
   }
 
  private:
