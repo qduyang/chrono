@@ -7,6 +7,7 @@ C++11 Timer wrappers based on Boost.Asio timers
 
 # Uasge
 ## Point timer
+* One-time timer by default
 ```c++
 auto second_from_now =
    std::chrono::system_clock::now() + std::chrono::seconds{1};
@@ -20,6 +21,8 @@ ioc.run();
 ```
 
 ## Duration timer
+* repeat by default
+
 ```c++
 auto start_time = std::chrono::steady_clock::now();
 std::chrono::steady_clock::time_point expired_time;
