@@ -8,6 +8,15 @@ C++11 Timer wrappers based on Boost.Asio timers
 # Uasge
 ## Point timer
 * One-time timer by default
+
+```c++
+template <class IntervalType = std::chrono::hours,
+          class IOExecutor   = boost::asio::io_context,
+          class Timer        = boost::asio::system_timer,
+          class TimePoint    = GetTimeType<Timer>>
+class PointTimer
+```
+
 ```c++
 auto second_from_now =
    std::chrono::system_clock::now() + std::chrono::seconds{1};
@@ -22,6 +31,13 @@ ioc.run();
 
 ## Duration timer
 * repeat by default
+```c++
+template <class IntervalType = std::chrono::hours,
+          class IOExecutor   = boost::asio::io_context,
+          class Timer        = boost::asio::system_timer,
+          class TimePoint    = GetTimeType<Timer>>
+class PointTimer
+```
 
 ```c++
 auto start_time = std::chrono::steady_clock::now();
