@@ -49,11 +49,10 @@ ioc.run();
 
 * Declaration
 ```c++
-template <class IntervalType = std::chrono::hours,
+template <class IntervalType = std::chrono::milliseconds,
           class IOExecutor   = boost::asio::io_context,
-          class Timer        = boost::asio::system_timer,
-          class TimePoint    = GetTimeType<Timer>>
-class PointTimer
+          class Timer        = boost::asio::steady_timer>
+class DurationTimer
 ```
 
 * Example
