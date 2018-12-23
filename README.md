@@ -38,8 +38,7 @@ auto second_from_now =
 boost::asio::io_context ioc;
 
 PointTimer<std::chrono::hours> timer{ioc, second_from_now};
-timer.Start(
-    []() { std::cout << "timer expired." << std::endl; }); 
+timer.Start([]() { std::cout << "timer expired." << std::endl; }); 
 
 ioc.run();
 ```
@@ -61,8 +60,7 @@ auto start_time = std::chrono::steady_clock::now();
 boost::asio::io_context ioc;
 
 DurationTimer timer{ioc, std::chrono::duration<double>{1}, false};
-timer.Start(
-    []() { std::cout << "timer expired." << std::endl; });
+timer.Start([]() { std::cout << "timer expired." << std::endl; });
 
 ioc.run();
 ```
@@ -77,8 +75,7 @@ boost::asio::io_context ioc;
 
 PointTimer<hours, boost::asio::io_context, boost::asio::deadline_timer> timer{
     ioc, second_from_now};
-timer.Start(
-    []() { std::cout << "timer expired." << std::endl; });
+timer.Start([]() { std::cout << "timer expired." << std::endl; });
 ioc.run();
 ```
 
@@ -90,8 +87,7 @@ auto start_time = std::chrono::steady_clock::now();
 boost::asio::strand strand;
 
 DurationTimer timer{strand, std::chrono::second{1}, false};
-timer.Start(
-    []() { std::cout << "timer expired." << std::endl; });
+timer.Start([]() { std::cout << "timer expired." << std::endl; });
 
 ioc.run();
 ```
