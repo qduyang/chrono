@@ -1,6 +1,10 @@
 # Chrono
 C++11 Timer wrappers based on Boost.Asio timers
 
+* Repeatable
+* Cancellable
+* Point-based or Duration-based
+
 # Uasge
 ## Point timer
 ```c++
