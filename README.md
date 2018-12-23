@@ -15,7 +15,7 @@ timer.Stop();
 * Thread-safed callback supported by asio::strand as io executor
 ```c++
 boost::asio::io_context ioc;
-boost::asio::strand strand{ioc};
+boost::asio::io_context::strand strand{ioc};
 DurationTimer timer{strand, std::chrono::second{1}};
 ```
 
@@ -86,7 +86,7 @@ ioc.run();
 ```c++
 auto start_time = std::chrono::steady_clock::now();
 boost::asio::io_context ioc;
-boost::asio::strand strand{ioc};
+boost::asio::io_context::strand strand{ioc};
 
 DurationTimer timer{strand, std::chrono::second{1}, false};
 timer.Start([]() { std::cout << "timer expired." << std::endl; });
