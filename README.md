@@ -59,7 +59,6 @@ class PointTimer
 * Example
 ```c++
 auto start_time = std::chrono::steady_clock::now();
-std::chrono::steady_clock::time_point expired_time;
 boost::asio::io_context ioc;
 
 DurationTimer timer{ioc, std::chrono::duration<double>{1}, false};
@@ -75,7 +74,6 @@ ioc.run();
 ```c++
 using namespace boost::posix_time;
 auto second_from_now = second_clock::universal_time() + seconds{1};
-ptime expire_time;
 boost::asio::io_context ioc;
 
 PointTimer<hours, boost::asio::io_context, boost::asio::deadline_timer> timer{
@@ -90,7 +88,6 @@ ioc.run();
 * Example
 ```c++
 auto start_time = std::chrono::steady_clock::now();
-std::chrono::steady_clock::time_point expired_time;
 boost::asio::strand strand;
 
 DurationTimer timer{strand, std::chrono::second{1}, false};
