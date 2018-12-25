@@ -17,8 +17,9 @@
 
 using namespace Chrono;
 
-SCENARIO("test point timer expire at specific a time point",
-         "[timer001][common][timer]")
+SCENARIO(
+    "test point timer expire at specific a time point",
+    "[timer001][common][timer]")
 {
   auto second_from_now =
       std::chrono::system_clock::now() + std::chrono::seconds{1};
@@ -33,8 +34,9 @@ SCENARIO("test point timer expire at specific a time point",
   REQUIRE((expire_time - second_from_now) < std::chrono::milliseconds{1});
 }
 
-SCENARIO("test point timer repeats at 3 times with 1 second interval",
-         "[timer002][common][timer]")
+SCENARIO(
+    "test point timer repeats at 3 times with 1 second interval",
+    "[timer002][common][timer]")
 {
   const auto second_from_now =
       std::chrono::system_clock::now() + std::chrono::seconds{1};
@@ -54,8 +56,8 @@ SCENARIO("test point timer repeats at 3 times with 1 second interval",
   });
   ioc.run();
 
-  REQUIRE((expire_time - three_seconds_from_now) <
-          std::chrono::milliseconds{1});
+  REQUIRE(
+      (expire_time - three_seconds_from_now) < std::chrono::milliseconds{1});
 }
 
 SCENARIO("test point timer with ptime support", "[timer003][common][timer]")
@@ -74,8 +76,8 @@ SCENARIO("test point timer with ptime support", "[timer003][common][timer]")
   REQUIRE((expire_time - second_from_now) < milliseconds{1});
 }
 
-SCENARIO("test duration timer expire after 1 second",
-         "[timer004][common][timer]")
+SCENARIO(
+    "test duration timer expire after 1 second", "[timer004][common][timer]")
 {
   auto start_time = std::chrono::steady_clock::now();
   std::chrono::steady_clock::time_point expired_time;
@@ -86,12 +88,14 @@ SCENARIO("test duration timer expire after 1 second",
       [&expired_time]() { expired_time = std::chrono::steady_clock::now(); });
   ioc.run();
 
-  REQUIRE((expired_time - start_time - std::chrono::seconds{1}) <
-          std::chrono::milliseconds{1});
+  REQUIRE(
+      (expired_time - start_time - std::chrono::seconds{1}) <
+      std::chrono::milliseconds{1});
 }
 
-SCENARIO("test duration timer expire repeats 3 times with 1 second interval",
-         "[timer005][common][timer]")
+SCENARIO(
+    "test duration timer expire repeats 3 times with 1 second interval",
+    "[timer005][common][timer]")
 {
   auto start_time = std::chrono::steady_clock::now();
   std::chrono::steady_clock::time_point expired_time;
@@ -109,6 +113,7 @@ SCENARIO("test duration timer expire repeats 3 times with 1 second interval",
   });
   ioc.run();
 
-  REQUIRE((expired_time - start_time - std::chrono::seconds{3}) <
-          std::chrono::milliseconds{1});
+  REQUIRE(
+      (expired_time - start_time - std::chrono::seconds{3}) <
+      std::chrono::milliseconds{1});
 }

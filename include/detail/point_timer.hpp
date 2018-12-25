@@ -16,10 +16,11 @@
 
 namespace Chrono::Detail
 {
-template <class IntervalType = std::chrono::hours,
-          class IOExecutor   = boost::asio::io_context,
-          class Timer        = boost::asio::system_timer,
-          class TimePoint    = GetTimeType<Timer>>
+template <
+    class IntervalType = std::chrono::hours,
+    class IOExecutor   = boost::asio::io_context,
+    class Timer        = boost::asio::system_timer,
+    class TimePoint    = GetTimeType<Timer>>
 class PointTimer
   : public BasicTimer<IntervalType, IOExecutor, Timer, TimePoint, ExpireAtPoint>
 {

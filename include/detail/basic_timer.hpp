@@ -41,19 +41,20 @@ struct GetTimeType<boost::asio::deadline_timer>
 template <class Timer>
 using GetTimeType = typename Impl::GetTimeType<Timer>::type;
 
-template <class IntervalType = std::chrono::hours,
-          class IOExecutor   = boost::asio::io_context,
-          class Timer        = boost::asio::system_timer,
-          class TimePoint    = GetTimeType<Timer>,
-          template <class, class> class ExpiryPolicy = ExpireAtPoint>
+template <
+    class IntervalType                         = std::chrono::hours,
+    class IOExecutor                           = boost::asio::io_context,
+    class Timer                                = boost::asio::system_timer,
+    class TimePoint                            = GetTimeType<Timer>,
+    template <class, class> class ExpiryPolicy = ExpireAtPoint>
 class BasicTimer : public ExpiryPolicy<IntervalType, TimePoint>
 {
  public:
   using ExpiryMgr = ExpiryPolicy<IntervalType, TimePoint>;
 
   template <class TP, class Interval>
-  BasicTimer(IOExecutor& ioe, TP&& expiry_time, Interval&& interval,
-             bool recursive)
+  BasicTimer(
+      IOExecutor& ioe, TP&& expiry_time, Interval&& interval, bool recursive)
     : ExpiryMgr{std::forward<TP>(expiry_time),
                 std::forward<Interval>(interval)},
       ioe_{ioe},
@@ -82,16 +83,18 @@ class BasicTimer : public ExpiryPolicy<IntervalType, TimePoint>
   }
 
   template <class TP, class Rep, class Period>
-  BasicTimer(IOExecutor& ioe, TP&& expiry_time,
-             const std::chrono::duration<Rep, Period>& interval)
+  BasicTimer(
+      IOExecutor& ioe, TP&& expiry_time,
+      const std::chrono::duration<Rep, Period>& interval)
     : BasicTimer{ioe, std::forward<TP>(expiry_time),
                  std::chrono::duration_cast<IntervalType>(interval), false}
   {
   }
 
   template <class TP, class Rep, class Period>
-  BasicTimer(IOExecutor& ioe, TP&& expiry_time,
-             const std::chrono::duration<Rep, Period>& interval, bool recursive)
+  BasicTimer(
+      IOExecutor& ioe, TP&& expiry_time,
+      const std::chrono::duration<Rep, Period>& interval, bool recursive)
     : ExpiryMgr{std::forward<TP>(expiry_time),
                 std::chrono::duration_cast<IntervalType>(interval)},
       ioe_{ioe},
@@ -152,7 +155,7 @@ class BasicTimer : public ExpiryPolicy<IntervalType, TimePoint>
   {
     ExpiryMgr::SetExpireTime(timer_);
     timer_.async_wait([this, handler = std::forward<F>(handler)](
-        const boost::system::error_code& ec) {
+                          const boost::system::error_code& ec) {
       OnTimeout(ec, std::move(handler));
     });
   }
@@ -162,7 +165,7 @@ class BasicTimer : public ExpiryPolicy<IntervalType, TimePoint>
   {
     ExpiryMgr::SetExpireTime(timer_);
     timer_.async_wait(ioe_.wrap([this, handler = std::forward<F>(handler)](
-        const boost::system::error_code& ec) {
+                                    const boost::system::error_code& ec) {
       OnTimeout(ec, std::move(handler));
     }));
   }

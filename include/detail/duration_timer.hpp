@@ -18,11 +18,13 @@
 
 namespace Chrono::Detail
 {
-template <class IntervalType = std::chrono::milliseconds,
-          class IOExecutor   = boost::asio::io_context,
-          class Timer        = boost::asio::steady_timer>
-class DurationTimer : public BasicTimer<IntervalType, IOExecutor, Timer,
-                                        GetTimeType<Timer>, ExpireAfter>
+template <
+    class IntervalType = std::chrono::milliseconds,
+    class IOExecutor   = boost::asio::io_context,
+    class Timer        = boost::asio::steady_timer>
+class DurationTimer
+  : public BasicTimer<
+        IntervalType, IOExecutor, Timer, GetTimeType<Timer>, ExpireAfter>
 {
  public:
   using TimePoint = GetTimeType<Timer>;
