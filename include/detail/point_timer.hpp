@@ -14,7 +14,7 @@
 
 #include "basic_timer.hpp"
 
-namespace Chrono::Detail
+namespace chrono::detail
 {
 template <
     class IntervalType = std::chrono::hours,
@@ -30,6 +30,6 @@ class PointTimer
   using Base::BasicTimer;
 };
 
-} // namespace Chrono::Detail
+} // namespace chrono::detail
 
 #endif

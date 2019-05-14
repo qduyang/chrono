@@ -16,7 +16,7 @@
 
 #include "basic_timer.hpp"
 
-namespace Chrono::Detail
+namespace chrono::detail
 {
 template <
     class IntervalType = std::chrono::milliseconds,
@@ -44,6 +44,6 @@ class DurationTimer
   }
 };
 
-} // namespace Chrono::Detail
+} // namespace chrono::detail
 
 #endif

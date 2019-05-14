@@ -12,7 +12,7 @@
 #ifndef CHRONO_DETAIL_EXPIRY_POLICY_HPP
 #define CHRONO_DETAIL_EXPIRY_POLICY_HPP
 
-namespace Chrono::Detail
+namespace chrono::detail
 {
 template <class IntervalType, class TimePoint>
 class ExpireAtPoint
@@ -98,6 +98,6 @@ class ExpireAfter
   IntervalType interval_;
 };
 
-} // namespace Chrono::Detail
+} // namespace chrono::detail
 
 #endif

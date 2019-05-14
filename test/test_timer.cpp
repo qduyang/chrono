@@ -15,7 +15,7 @@
 
 #include "timer.hpp"
 
-using namespace Chrono;
+using namespace chrono;
 
 SCENARIO(
     "test point timer expire at specific a time point",

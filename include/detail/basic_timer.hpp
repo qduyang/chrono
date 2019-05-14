@@ -21,9 +21,9 @@
 
 #include "expiry_policy.hpp"
 
-namespace Chrono::Detail
+namespace chrono::detail
 {
-namespace Impl
+namespace impl
 {
 template <class Timer>
 struct GetTimeType
@@ -36,10 +36,10 @@ struct GetTimeType<boost::asio::deadline_timer>
 {
   using type = typename boost::asio::deadline_timer::time_type;
 };
-} // namespace Impl
+} // namespace impl
 
 template <class Timer>
-using GetTimeType = typename Impl::GetTimeType<Timer>::type;
+using GetTimeType = typename impl::GetTimeType<Timer>::type;
 
 template <
     class IntervalType                         = std::chrono::hours,
@@ -176,6 +176,6 @@ class BasicTimer : public ExpiryPolicy<IntervalType, TimePoint>
   bool recursive_;
 };
 
-} // namespace Chrono::Detail
+} // namespace chrono::detail
 
 #endif

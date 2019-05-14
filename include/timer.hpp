@@ -15,10 +15,10 @@
 #include "detail/duration_timer.hpp"
 #include "detail/point_timer.hpp"
 
-namespace Chrono
+namespace chrono
 {
-using Detail::DurationTimer;
-using Detail::PointTimer;
-}; // namespace Chrono
+using detail::DurationTimer;
+using detail::PointTimer;
+}; // namespace chrono
 
 #endif
